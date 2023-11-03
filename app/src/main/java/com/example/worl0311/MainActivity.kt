@@ -5,23 +5,19 @@ import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.*
-import androidx.compose.material3.Text
-import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Box( modifier = Modifier.fillMaxSize(), contentAlignment = Alignment.Center )
+            Column(modifier = Modifier.fillMaxSize(), verticalArrangement = Arrangement.SpaceBetween )
             {
-                Box(modifier = Modifier.background(Color.Blue).size(300.dp))
-                Box(modifier = Modifier.background(Color.LightGray).size(200.dp))
-                Text("Hello METANIT.COM!", style = TextStyle(fontSize = 22.sp))
+                Box(modifier = Modifier.background(Color.Red).fillMaxWidth().height(100.dp))
+                Box(modifier = Modifier.background(Color.Yellow).fillMaxWidth().height(100.dp))
+                Box(modifier = Modifier.background(Color.Green).fillMaxWidth().height(100.dp))
             }
         }
     }
