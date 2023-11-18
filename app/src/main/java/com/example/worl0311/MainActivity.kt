@@ -8,31 +8,31 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
-import androidx.compose.runtime.remember
 import androidx.compose.runtime.setValue
 import androidx.compose.ui.Modifier
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewmodel.compose.viewModel
 
-
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Screen0()
+            Screen1()
         }
     }
 }
 
+
 @Composable
-fun Screen0(myViewModel: MyViewModel = viewModel()) {
-    var i by remember { mutableStateOf(0) }
+fun Screen1(myViewModel: MyViewModel1 = viewModel()) {
+    var i by myViewModel.i
     Text(
         text = "Клики: $i",
         modifier = Modifier.clickable(onClick = { i++ } )
     )
 }
 
-class MyViewModel : ViewModel() {
+
+class MyViewModel1 : ViewModel() {
     val i = mutableStateOf(0)
 }
