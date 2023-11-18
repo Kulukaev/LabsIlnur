@@ -1,48 +1,18 @@
 package com.example.worl0311
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.compose.foundation.clickable
-import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
-import androidx.compose.runtime.State
-import androidx.compose.runtime.getValue
-import androidx.compose.runtime.mutableStateOf
-import androidx.compose.ui.Modifier
-import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewmodel.compose.viewModel
+import com.example.worl0311.ui.theme.UDFprinciple.Screen3UDF
 
 class MainActivity : ComponentActivity() {
+    private val TAG = "P10"
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            Screen2()
+            Screen3UDF()
+            Log.d(TAG, "Код сработал")
         }
-    }
-}
-
-@Composable
-fun Screen2(myViewModel: MyViewModel3 = viewModel()) {
-    val i by myViewModel.i
-    Text(
-        text = "Клики: $i",
-        modifier = Modifier.clickable(onClick = myViewModel::increment)
-    )
-}
-
-class MyViewModel2 : ViewModel() {
-    private val j = mutableStateOf(0)
-    val i: State<Int> = j
-    fun increment() {
-        j.value++
-    }
-}
-
-class MyViewModel3 : ViewModel() {
-    var i = mutableStateOf(0)
-        private set
-    fun increment() {
-        i.value++
     }
 }
