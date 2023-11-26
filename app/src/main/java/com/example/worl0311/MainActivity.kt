@@ -14,7 +14,7 @@ class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            val message = remember{mutableStateOf("Hello Jetpack")}
+            val message = remember{mutableStateOf("Hello Niger")}
 
             Text(
                 text = message.value,
