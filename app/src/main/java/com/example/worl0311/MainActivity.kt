@@ -3,73 +3,94 @@ package com.example.worl0311
 import android.os.Bundle
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
-import androidx.activity.viewModels
-import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
-import androidx.compose.foundation.layout.PaddingValues
-import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.Box
+import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
-import androidx.compose.material3.CardDefaults
-import androidx.compose.material3.OutlinedCard
+import androidx.compose.foundation.layout.wrapContentHeight
+import androidx.compose.foundation.lazy.staggeredgrid.LazyVerticalStaggeredGrid
+import androidx.compose.foundation.lazy.staggeredgrid.StaggeredGridCells
+import androidx.compose.foundation.lazy.staggeredgrid.items
+import androidx.compose.foundation.lazy.staggeredgrid.itemsIndexed
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.remember
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.text.style.TextAlign
+import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.example.worl0311.ui.theme.City
-import com.example.worl0311.ui.theme.MyViewModel
+import coil.compose.AsyncImage
 
 class MainActivity : ComponentActivity() {
-    val vm: MyViewModel by viewModels()
+    val randomSizedPhotos = listOf(
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 900, height = 1600),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 300, height = 400),
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 900, height = 1600),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 300, height = 400),
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 500, height = 500),
+
+        randomSampleImageUrl(width = 900, height = 1600),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 300, height = 400),
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 300, height = 400),
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 900, height = 1600),
+        randomSampleImageUrl(width = 500, height = 500),
+        randomSampleImageUrl(width = 300, height = 400),
+        randomSampleImageUrl(width = 1600, height = 900),
+        randomSampleImageUrl(width = 500, height = 500),
+    )
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
-            MyScreen(vm.citiz)
-        }
-    }
-}
-
-@Composable
-fun MyScreen(citiz: List<City>) {
-    LazyColumn(
-        verticalArrangement = Arrangement.spacedBy(3.dp),
-        contentPadding = PaddingValues(16.dp),
-
-        modifier = Modifier
-            .border(3.dp, Color.Gray)
-            .padding(10.dp)
-    ) {
-        item {
-            Row {
-                Text(text = "City", Modifier.fillMaxWidth(0.7f), textAlign = TextAlign.Center)
-                Text(text = "Temp", textAlign = TextAlign.Center)
-            }
-        }
-        items(citiz) {
-            CityItem(it)
-        }
-    }
-}
-
-@Composable
-fun CityItem(cityModel: City) {
-    OutlinedCard(
-        modifier = Modifier
-            .fillMaxWidth(), elevation = CardDefaults.cardElevation(10.dp)
-    ) {
-        Row(horizontalArrangement = Arrangement.SpaceAround) {
-            Text(
-                text = cityModel.name,
-                modifier = Modifier.fillMaxWidth(0.7f),
-                fontSize = 20.sp,
-                textAlign = TextAlign.Center
+            LazyVerticalStaggeredGrid(
+                columns = StaggeredGridCells.Fixed(3),
+                verticalItemSpacing = 4.dp,
+                horizontalArrangement = Arrangement.spacedBy(4.dp),
+                content = {
+                    items(randomSizedPhotos) { photo ->
+                        AsyncImage(
+                            model = photo,
+                            contentScale = ContentScale.Crop,
+                            contentDescription = null,
+                            modifier = Modifier
+                                .fillMaxWidth()
+                                .wrapContentHeight()
+                        )
+                    }
+                },
+                modifier = Modifier.fillMaxSize()
             )
-            Text(text = cityModel.temp.toString(), fontSize = 20.sp, textAlign = TextAlign.Right)
         }
     }
 }
+
+fun randomSampleImageUrl(
+    seed: Int = (0..100000).random(),
+    width: Int = 300,
+    height: Int = width,
+): String {
+    return "https://loremflickr.com/$width/$height?random=$seed"
+}
+
+@Composable
+fun rememberRandomSampleImageUrl(
+    seed: Int = (0..100000).random(),
+    width: Int = 300,
+    height: Int = width,
+): String = remember { randomSampleImageUrl(seed, width, height) }
